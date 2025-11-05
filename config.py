@@ -4,5 +4,7 @@ basedir = os.path.abspath(os.path.dirname(__file__))
 
 class Config:
     SECRET_KEY = os.environ.get("SECRET_KEY", "dev-secret-key-change-this")
-    SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:cgbpc0i7Osf3@localhost/cupcakeapp"
-    SQLALCHEMY_TRACK_MODIFICATIONS = False
+    BASE_DIR = os.path.abspath(os.path.dirname(__file__))
+    SQLALCHEMY_DATABASE_URI = f"sqlite:///{os.path.join(BASE_DIR, 'cupcakeapp.db')}"
+
+SQLALCHEMY_TRACK_MODIFICATIONS = False
