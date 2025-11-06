@@ -13,11 +13,11 @@ def index():
 def catalog():
     cupcakes = Cupcake.query.all()
     if not Cupcake.query.first():
-    from .. import db
-    demo_items = [
-        Cupcake(nome="Cupcake de Chocolate", preco=7.5, descricao="Com cobertura cremosa de chocolate"),
-        Cupcake(nome="Cupcake de Morango", preco=6.0, descricao="Com pedaços de morango fresco"),
-        Cupcake(nome="Cupcake de Baunilha", preco=5.5, descricao="Tradicional e suave"),
+        from .. import db
+        demo_items = [
+            Cupcake(nome="Cupcake de Chocolate", preco=7.5, descricao="Com cobertura cremosa de chocolate"),
+            Cupcake(nome="Cupcake de Morango", preco=6.0, descricao="Com pedaços de morango fresco"),
+            Cupcake(nome="Cupcake de Baunilha", preco=5.5, descricao="Tradicional e suave"),
     ]
     db.session.add_all(demo_items)
     db.session.commit()
