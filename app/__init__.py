@@ -31,20 +31,33 @@ def create_app():
     with app.app_context():
         db.create_all()
 
-        from .models import Cupcake, Avaliacao, Usuario
-        if not Cupcake.query.first():
-            demo_cupcakes = [
-                Cupcake(nome="Cupcake de Chocolate", preco=7.5, descricao="Cobertura cremosa de chocolate"),
-                Cupcake(nome="Cupcake de Morango", preco=6.0, descricao="Com pedaços de morango fresco"),
-                Cupcake(nome="Cupcake de Baunilha", preco=5.5, descricao="Tradicional e suave"),
-            ]
-            db.session.add_all(demo_cupcakes)
-            db.session.commit()
+    from .models import Cupcake, Usuario, Avaliacao, Cupom
+    if not Cupcake.query.first():
+        demo_cupcakes = [
+            Cupcake(nome="Red Velvet", preco=8.0, descricao="Com cobertura de cream cheese", imagem="redvelvet.jpg"),
+            Cupcake(nome="Chocolate", preco=7.5, descricao="Cobertura cremosa de chocolate", imagem="chocolate.jpg"),
+            Cupcake(nome="Baunilha", preco=6.0, descricao="Sabor clássico com granulado", imagem="baunilha.jpg"),
+            Cupcake(nome="Morango", preco=6.5, descricao="Recheio e cobertura de morango", imagem="morango.jpg"),
+        ]
+        db.session.add_all(demo_cupcakes)
+        print("🍰 Cupcakes adicionados!")
 
-        if not Usuario.query.first():
-            user = Usuario(nome="Cliente Demo", email="demo@email.com", senha="123456")
-            db.session.add(user)
-            db.session.commit()
+    if not Cupom.query.first():
+        demo_cupons = [
+            Cupom(codigo="DESCONTO10", valor_desconto=10, ativo=True),
+            Cupom(codigo="BOASVINDAS", valor_desconto=15, ativo=True),
+            Cupom(codigo="CUPCAKEVIP", valor_desconto=20, ativo=True),
+        ]
+        db.session.add_all(demo_cupons)
+        print("🎟️ Cupons adicionados!")
+
+    if not Usuario.query.filter_by(email="teste@email.com").first():
+        user = Usuario(nome="Usuário Teste", email="teste@email.com", senha="123456")
+        db.session.add(user)
+        print("👤 Usuário demo criado!")
+
+    db.session.commit()
+
 
         if not Avaliacao.query.first():
             cup1 = Cupcake.query.first()
