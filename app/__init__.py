@@ -28,12 +28,7 @@ def create_app():
 
     with app.app_context():
         db.create_all()
-    with app.app_context():
-        db.create_all()
-
-        with app.app_context():
-        db.create_all()
-
+  
         from .models import Cupcake, Usuario, Avaliacao, Cupom
 
         if not Cupcake.query.first():
