@@ -28,5 +28,28 @@ def create_app():
 
     with app.app_context():
         db.create_all()
+    with app.app_context():
+        db.create_all()
+
+        from .models import Cupcake, Avaliacao, Usuario
+        if not Cupcake.query.first():
+            demo_cupcakes = [
+                Cupcake(nome="Cupcake de Chocolate", preco=7.5, descricao="Cobertura cremosa de chocolate"),
+                Cupcake(nome="Cupcake de Morango", preco=6.0, descricao="Com pedaços de morango fresco"),
+                Cupcake(nome="Cupcake de Baunilha", preco=5.5, descricao="Tradicional e suave"),
+            ]
+            db.session.add_all(demo_cupcakes)
+            db.session.commit()
+
+        if not Usuario.query.first():
+            user = Usuario(nome="Cliente Demo", email="demo@email.com", senha="123456")
+            db.session.add(user)
+            db.session.commit()
+
+        if not Avaliacao.query.first():
+            cup1 = Cupcake.query.first()
+            user = Usuario.query.first()
+            db.session.add(Avaliacao(id_usuario=user.id_usuario, id_cupcake=cup1.id_cupcake, nota=5, comentario="Excelente!"))
+            db.session.commit()
 
     return app
